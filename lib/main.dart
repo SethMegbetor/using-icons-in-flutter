@@ -26,6 +26,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Add',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: BookMark',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: Profile',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 4: FontAwesome',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           child: Column(
             children: [
-             const Text('using the font awesome package',
+              const Text('using the font awesome package',
                   textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
-             const Text(
+              const Text(
                 'Brand Icons',
                 textAlign: TextAlign.start,
                 style: TextStyle(
@@ -50,19 +82,142 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
-                 FaIcon(FontAwesomeIcons.twitterSquare, size: 50, color: Colors.blue,),
-                 SizedBox(width: 10,),
-                 FaIcon(FontAwesomeIcons.instagram, size: 50, color: Colors.blue,),
-                 SizedBox(width: 10,),
-                 FaIcon(FontAwesomeIcons.snapchat, size: 50, color: Colors.blue,),
-                 SizedBox(width: 10,),
-                 FaIcon(FontAwesomeIcons.linkedin, size: 50, color: Colors.blue,),
-                 SizedBox(width: 10,),
-                 FaIcon(FontAwesomeIcons.pinterest, size: 50, color: Colors.blue,),
+                  FaIcon(
+                    FontAwesomeIcons.twitterSquare,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.instagram,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.snapchat,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.linkedin,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.pinterest,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              const Text('Regular Icons'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  FaIcon(
+                    FontAwesomeIcons.smile,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.shoePrints,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.shoppingBag,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.signal,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.arrowAltCircleDown,
+                    size: 50,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+              IconButton(
+                icon: const FaIcon(FontAwesomeIcons.twitterSquare),
+                onPressed: () {
+                  _onSearchButtonPressed();
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Center(
+                    child: _widgetOptions.elementAt(_selectedIndex),
+                  )
                 ],
               )
             ],
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+              backgroundColor: Colors.brown,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: 'Home',
+              backgroundColor: Colors.red,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark),
+              label: 'Home',
+              backgroundColor: Colors.green,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Home',
+              backgroundColor: Colors.blueGrey,
+            ),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.addressBook),
+                label: 'Home',
+                backgroundColor: Colors.pink),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.blue,
+          onTap: _onItemTapped,
         ));
   }
+}
+
+void _onSearchButtonPressed() {
+  print("icon clicked");
 }
