@@ -1,223 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(
+    const ChatApp(),
+  );
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ChatApp extends StatelessWidget {
+  const ChatApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Using Icons',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+    return const MaterialApp(
+      title: 'FriendlyChat',
+      home: ChatScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Add',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: BookMark',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Profile',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: FontAwesome',
-      style: optionStyle,
-    ),
-  ];
+class _ChatScreenState extends State<ChatScreen> {
+  final _textController = TextEditingController();
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _handleSubmitted(String text) {
+    _textController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Using Icons'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              const Text('using the font awesome package',
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
-              const Text(
-                'Brand Icons',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.blue),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  FaIcon(
-                    FontAwesomeIcons.twitterSquare,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.instagram,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.snapchat,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.linkedin,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.pinterest,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              const Text('Regular Icons'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  FaIcon(
-                    FontAwesomeIcons.smile,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.shoePrints,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.shoppingBag,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.signal,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.arrowAltCircleDown,
-                    size: 50,
-                    color: Colors.blue,
-                  ),
-                ],
-              ),
-              IconButton(
-                icon: const FaIcon(FontAwesomeIcons.twitterSquare),
-                onPressed: () {
-                  _onSearchButtonPressed();
-                },
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Center(
-                    child: _widgetOptions.elementAt(_selectedIndex),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.brown,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add),
-              label: 'Home',
-              backgroundColor: Colors.red,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark),
-              label: 'Home',
-              backgroundColor: Colors.green,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Home',
-              backgroundColor: Colors.blueGrey,
-            ),
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.addressBook),
-                label: 'Home',
-                backgroundColor: Colors.pink),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          onTap: _onItemTapped,
-        ));
+      appBar: AppBar(title: const Text('ChatUI')),
+      body: _buildTextComposer(),
+    );
   }
-}
 
-void _onSearchButtonPressed() {
-  print("icon clicked");
+  Widget _buildTextComposer() {
+    return IconTheme(
+      data: IconThemeData(color: Theme.of(context).colorScheme.secondary),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          children: [
+            Flexible(
+              child: TextField(
+                controller: _textController,
+                onSubmitted: _handleSubmitted,
+                decoration:
+                    const InputDecoration.collapsed(hintText: 'Send a message'),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: () => _handleSubmitted(_textController.text)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
