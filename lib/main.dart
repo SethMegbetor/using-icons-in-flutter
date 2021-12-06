@@ -5,7 +5,8 @@ void main() {
     const ChatApp(),
   );
 }
-  String _name = 'spiderman';
+
+String _name = 'spiderman';
 
 class ChatApp extends StatelessWidget {
   const ChatApp({
@@ -19,7 +20,6 @@ class ChatApp extends StatelessWidget {
       home: ChatScreen(),
     );
   }
-
 }
 
 class ChatMessage extends StatelessWidget {
@@ -61,7 +61,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final List<ChatMessage> = _messages = [];
+  final List<ChatMessage> _messages = [];
   final _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -73,13 +73,26 @@ class _ChatScreenState extends State<ChatScreen> {
     setState(() {
       _messages.insert(0, message);
     });
+    _focusNode.requestFocus();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('ChatUI')),
-      body: _buildTextComposer(),
+      // body: _buildTextComposer(),
+      body: Column(
+        children: [
+          Flexible(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8.0),
+              reverse: true,
+              itemBuilder: (_, int index) => _messages[index],
+              itemCount: _messages.length,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -96,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 onSubmitted: _handleSubmitted,
                 decoration:
                     const InputDecoration.collapsed(hintText: 'Send a message'),
-                    focusNode: _focusNode,
+                focusNode: _focusNode,
               ),
             ),
             Container(
