@@ -5,6 +5,7 @@ void main() {
     const ChatApp(),
   );
 }
+  String _name = 'spiderman';
 
 class ChatApp extends StatelessWidget {
   const ChatApp({
@@ -16,6 +17,36 @@ class ChatApp extends StatelessWidget {
     return const MaterialApp(
       title: 'FriendlyChat',
       home: ChatScreen(),
+    );
+  }
+
+}
+
+class ChatMessage extends StatelessWidget {
+  const ChatMessage({required this.text, Key? key}) : super(key: key);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            child: CircleAvatar(child: Text(_name[0])),
+          ),
+          Column(
+            children: [
+              Text(_name, style: Theme.of(context).textTheme.headline4),
+              Container(
+                margin: const EdgeInsets.only(top: 5.0),
+                child: Text(text),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -30,10 +61,18 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final List<ChatMessage> = _messages = [];
   final _textController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   void _handleSubmitted(String text) {
     _textController.clear();
+    var message = ChatMessage(
+      text: text,
+    );
+    setState(() {
+      _messages.insert(0, message);
+    });
   }
 
   @override
@@ -57,6 +96,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 onSubmitted: _handleSubmitted,
                 decoration:
                     const InputDecoration.collapsed(hintText: 'Send a message'),
+                    focusNode: _focusNode,
               ),
             ),
             Container(
